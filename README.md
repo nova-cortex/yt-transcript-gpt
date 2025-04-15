@@ -21,7 +21,7 @@ Follow these steps to run the application locally:
 
    ```bash
    git clone https://github.com/UKR-PROJECTS/Streamlit-SSTranscript.git
-   cd your-repo-name
+   cd Streamlit-SSTranscript
    ```
 
 2. **(Optional) Create and activate a virtual environment:**
