@@ -1,4 +1,3 @@
-```markdown
 # YouTube Transcript Extractor
 
 This is a Streamlit application that extracts transcripts from YouTube videos using the [youtube_transcript_api](https://github.com/jdepoix/youtube-transcript-api). The app supports both manually generated and auto-generated transcripts and allows users to select their preferred language for the transcript. An embedded YouTube player displays the video alongside the transcript.
@@ -13,7 +12,6 @@ This is a Streamlit application that extracts transcripts from YouTube videos us
 
 ## Screenshots
 
-_Add screenshots of your application here if available._
 
 ## Installation
 
