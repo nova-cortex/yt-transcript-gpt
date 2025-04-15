@@ -20,7 +20,7 @@ Follow these steps to run the application locally:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
+   git clone https://github.com/UKR-PROJECTS/Streamlit-SSTranscript.git
    cd your-repo-name
    ```
 
@@ -88,5 +88,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - Thanks to the contributors and the open-source community for their continued support.
 
 ```
-
-Just replace `yourusername/your-repo-name` in the instructions with your actual GitHub username and repository name, and add any additional details you need. Enjoy your project!
