@@ -86,5 +86,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - [Streamlit](https://streamlit.io/) for the web application framework.
 - [youtube_transcript_api](https://github.com/jdepoix/youtube-transcript-api) for transcript retrieval functionality.
 - Thanks to the contributors and the open-source community for their continued support.
-
-```
