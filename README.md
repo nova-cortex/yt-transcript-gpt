@@ -11,7 +11,9 @@ This is a Streamlit application that extracts transcripts from YouTube videos us
 - **Custom Styling:** Provides a clean and modern interface with custom CSS styling.
 
 ## Screenshots
-
+<p align="center">
+  <img src="screenshot/Screenshot.png"/>
+</p>
 
 ## Installation
 
