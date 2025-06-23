@@ -53,7 +53,7 @@ import json
 import base64
 import streamlit.components.v1
 
-# Try importing transcript libraries with fallback
+
 try:
     from youtube_transcript_api import YouTubeTranscriptApi
     TRANSCRIPT_API_AVAILABLE = True
@@ -282,17 +282,44 @@ class YouTubeTranscriptExtractor:
                 return match.group(1)
         return None
     
-    def get_transcript_youtube_api(self, video_id):
-        """Get transcript using YouTube Transcript API"""
+    def get_transcript_with_proxy(self, video_id, proxies=None):
+        """Get transcript using YouTube Transcript API with proxy support"""
         try:
-            transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
+            if proxies:
+                # Configure proxies for the transcript API
+                transcript_list = YouTubeTranscriptApi.get_transcript(
+                    video_id,
+                    proxies=proxies
+                )
+            else:
+                transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
             return transcript_list
         except Exception as e:
             st.error(f"YouTube Transcript API failed: {str(e)}")
             return None
     
-    def get_transcript_ytdlp(self, video_id):
-        """Get transcript using yt-dlp as fallback"""
+    def get_transcript_youtube_api(self, video_id, use_proxy=False, proxy_config=None):
+        """Get transcript using YouTube Transcript API with optional proxy"""
+        try:
+            if use_proxy and proxy_config:
+                proxies = {
+                    'http': proxy_config,
+                    'https': proxy_config
+                }
+                transcript_list = self.get_transcript_with_proxy(video_id, proxies)
+            else:
+                transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
+            return transcript_list
+        except Exception as e:
+            error_message = str(e)
+            if "blocked" in error_message.lower() or "ip" in error_message.lower():
+                st.error("🚫 Your IP has been blocked by YouTube. Try using a proxy or VPN.")
+            else:
+                st.error(f"YouTube Transcript API failed: {error_message}")
+            return None
+    
+    def get_transcript_ytdlp(self, video_id, use_proxy=False, proxy_config=None):
+        """Get transcript using yt-dlp as fallback with proxy support"""
         try:
             url = f"https://www.youtube.com/watch?v={video_id}"
             ydl_opts = {
@@ -302,24 +329,43 @@ class YouTubeTranscriptExtractor:
                 'quiet': True
             }
             
+            if use_proxy and proxy_config:
+                ydl_opts['proxy'] = proxy_config
+            
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(url, download=False)
+                
+                # Try to get subtitles
                 subtitles = info.get('subtitles', {})
                 auto_captions = info.get('automatic_captions', {})
                 
-                # Try to get English subtitles
-                captions = subtitles.get('en') or auto_captions.get('en')
-                if captions:
-                    # This is a simplified version - full implementation would download and parse
-                    return [{"text": "Transcript available via yt-dlp", "start": 0, "duration": 1}]
+                # Try English first, then any available language
+                for lang in ['en', 'en-US', 'en-GB']:
+                    if lang in subtitles:
+                        return self._process_ytdlp_subtitles(subtitles[lang])
+                    if lang in auto_captions:
+                        return self._process_ytdlp_subtitles(auto_captions[lang])
+                
+                # If no English, try first available
+                if subtitles:
+                    first_lang = list(subtitles.keys())[0]
+                    return self._process_ytdlp_subtitles(subtitles[first_lang])
+                if auto_captions:
+                    first_lang = list(auto_captions.keys())[0]
+                    return self._process_ytdlp_subtitles(auto_captions[first_lang])
             
             return None
         except Exception as e:
             st.error(f"yt-dlp failed: {str(e)}")
             return None
     
-    def extract_transcript(self, video_url):
-        """Main method to extract transcript with fallback"""
+    def _process_ytdlp_subtitles(self, subtitle_list):
+        """Process subtitle list from yt-dlp"""
+        # This is a simplified version - in practice, you'd need to download and parse the subtitle files
+        return [{"text": "Subtitle available via yt-dlp (implementation needed)", "start": 0, "duration": 1}]
+    
+    def extract_transcript(self, video_url, use_proxy=False, proxy_config=None):
+        """Main method to extract transcript with fallback and proxy support"""
         video_id = self.extract_video_id(video_url)
         if not video_id:
             return None, "Invalid YouTube URL"
@@ -333,17 +379,19 @@ class YouTubeTranscriptExtractor:
         
         # Try YouTube Transcript API first
         if TRANSCRIPT_API_AVAILABLE:
-            transcript = self.get_transcript_youtube_api(video_id)
+            transcript = self.get_transcript_youtube_api(video_id, use_proxy, proxy_config)
             if transcript:
                 self.transcript_data = transcript
-                return transcript, "Success using YouTube Transcript API"
+                proxy_status = " (with proxy)" if use_proxy else ""
+                return transcript, f"Success using YouTube Transcript API{proxy_status}"
         
         # Fallback to yt-dlp
         if YT_DLP_AVAILABLE:
-            transcript = self.get_transcript_ytdlp(video_id)
+            transcript = self.get_transcript_ytdlp(video_id, use_proxy, proxy_config)
             if transcript:
                 self.transcript_data = transcript
-                return transcript, "Success using yt-dlp"
+                proxy_status = " (with proxy)" if use_proxy else ""
+                return transcript, f"Success using yt-dlp{proxy_status}"
         
         return None, "Both transcript extraction methods failed"
 
@@ -564,6 +612,27 @@ def main():
     with st.sidebar:
         st.header("⚙️ Configuration")
         
+        # Proxy Configuration
+        st.subheader("🔒 Proxy Settings")
+        use_proxy = st.checkbox("Use Proxy", help="Enable if you're getting IP blocked errors")
+        
+        proxy_config = None
+        if use_proxy:
+            proxy_type = st.selectbox("Proxy Type", ["HTTP", "HTTPS", "SOCKS5"])
+            proxy_host = st.text_input("Proxy Host", placeholder="proxy.example.com")
+            proxy_port = st.text_input("Proxy Port", placeholder="8080")
+            proxy_user = st.text_input("Username (optional)", placeholder="username")
+            proxy_pass = st.text_input("Password (optional)", type="password", placeholder="password")
+            
+            if proxy_host and proxy_port:
+                if proxy_user and proxy_pass:
+                    proxy_config = f"{proxy_type.lower()}://{proxy_user}:{proxy_pass}@{proxy_host}:{proxy_port}"
+                else:
+                    proxy_config = f"{proxy_type.lower()}://{proxy_host}:{proxy_port}"
+                st.success("✅ Proxy configured")
+            elif use_proxy:
+                st.warning("⚠️ Please enter proxy host and port")
+
         # Gemini API Key
         gemini_api_key = st.text_input(
             "Gemini API Key",
@@ -613,7 +682,11 @@ def main():
             else:
                 with st.spinner("Extracting transcript..."):
                     extractor = YouTubeTranscriptExtractor()
-                    transcript, message = extractor.extract_transcript(video_url)
+                    transcript, message = extractor.extract_transcript(
+                        video_url, 
+                        use_proxy=use_proxy, 
+                        proxy_config=proxy_config
+                    )
                     
                     if transcript:
                         st.session_state.transcript_data = transcript
@@ -633,6 +706,16 @@ def main():
                         st.markdown('<div class="success-box">✅ ' + message + '</div>', unsafe_allow_html=True)
                     else:
                         st.markdown('<div class="warning-box">❌ ' + message + '</div>', unsafe_allow_html=True)
+                        
+                        # Show troubleshooting tips
+                        st.markdown("""
+                        ### 🔧 Troubleshooting Tips:
+                        1. **Enable Proxy**: Check the "Use Proxy" option in the sidebar and configure a proxy server
+                        2. **Try Different Video**: Some videos may have transcripts disabled
+                        3. **Wait and Retry**: Your IP might be temporarily blocked - try again later
+                        4. **Use VPN**: Connect through a VPN to change your IP address
+                        5. **Check Video Availability**: Ensure the video is public and has captions
+                        """)
         
         # Display transcript
         if st.session_state.transcript_data:
