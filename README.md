@@ -121,7 +121,7 @@ pip install streamlit youtube-transcript-api yt-dlp google-generativeai
 
 ## 📸 Screenshot
 
-![Interface](src/screenshots/screenshot.png)
+![Interface](screenshots/screenshot.png)
 
 ---
 
