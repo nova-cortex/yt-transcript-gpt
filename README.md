@@ -1,4 +1,4 @@
-# 🎬 YouTube-Transcript-Generator v1.0.0
+# 🎬 YouTube-Transcript-Generator
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green) ![Language: Python](https://img.shields.io/badge/Language-Python-blue) ![Status: Active](https://img.shields.io/badge/Status-Active-brightgreen)
 
@@ -6,7 +6,7 @@ YouTube-Transcript-Generator is a Streamlit-based desktop/web app to extract You
 
 ---
 
-## ✨ What’s New in v1.0.0
+## ✨ What’s New
 
 - 🎉 **Initial release** with core transcript extraction and AI modules  
 - 🚀 Integrated both YouTube Transcript API and `yt-dlp` fallback  
