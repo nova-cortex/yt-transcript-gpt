@@ -144,3 +144,22 @@ pip install streamlit youtube-transcript-api yt-dlp google-generativeai
 * **YouTube Transcript API** & **yt-dlp** for transcript extraction
 * **Google Gemini AI** (`google-generativeai`) for advanced analysis
 
+## 🌟 Star History
+
+If you find this project useful, please consider giving it a star on GitHub! Your support helps us continue improving and maintaining this tool.
+
+## 📞 Support
+
+- **GitHub Issues**: [Report bugs or request features](https://github.com/UKR-PROJECTS/Youtube-Transcript-Generator/issues)
+- **Discussions**: [Community discussions and Q&A](https://github.com/UKR-PROJECTS/Youtube-Transcript-Generator/discussions)
+- **Email**: ukrpurojekuto@gmail.com
+
+---
+
+<div align="center">
+
+**Made with ❤️ by the Ujjwal Nova**
+
+[⭐ Star this repo](https://github.com/UKR-PROJECTS/Youtube-Transcript-Generator) | [🐛 Report Bug](https://github.com/UKR-PROJECTS/Youtube-Transcript-Generator/issues) | [💡 Request Feature](https://github.com/UKR-PROJECTS/Youtube-Transcript-Generator/issues)
+
+</div>
