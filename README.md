@@ -79,8 +79,8 @@ pip install streamlit youtube-transcript-api yt-dlp google-generativeai
 1. **Clone** the repo
 
    ```bash
-   git clone https://github.com/UKR-PROJECTS/Youtube-Transcript-Generator.git
-   cd Youtube-Transcript-Generator
+   git clone https://github.com/ukr-projects/yt-transcript-gpt.git
+   cd yt-transcript-gpt
    ```
 2. **Install** dependencies
 
