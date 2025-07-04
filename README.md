@@ -1,8 +1,8 @@
-# 🎬 YouTube-Transcript-Generator
+# 🎬 yt-transcript-gpt
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green) ![Language: Python](https://img.shields.io/badge/Language-Python-blue) ![Status: Active](https://img.shields.io/badge/Status-Active-brightgreen)
 
-YouTube-Transcript-Generator is a Streamlit-based desktop/web app to extract YouTube video transcripts, enrich them with AI-powered analysis, and interact via chat—all in one place.
+yt-transcript-gpt is a Streamlit-based desktop/web app to extract YouTube video transcripts, enrich them with AI-powered analysis, and interact via chat—all in one place.
 
 ---
 
@@ -37,7 +37,7 @@ YouTube-Transcript-Generator is a Streamlit-based desktop/web app to extract You
 
 ```
 
-YouTube-Transcript-Generator/
+yt-transcript-gpt/
 ├── LICENSE                      # MIT License
 ├── README.md                    # This file
 ├── requirements.txt             # Python dependencies
