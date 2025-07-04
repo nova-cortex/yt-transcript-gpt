@@ -150,8 +150,8 @@ If you find this project useful, please consider giving it a star on GitHub! You
 
 ## 📞 Support
 
-- **GitHub Issues**: [Report bugs or request features](https://github.com/UKR-PROJECTS/Youtube-Transcript-Generator/issues)
-- **Discussions**: [Community discussions and Q&A](https://github.com/UKR-PROJECTS/Youtube-Transcript-Generator/discussions)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/ukr-projects/yt-transcript-gpt/issues)
+- **Discussions**: [Community discussions and Q&A](https://github.com/ukr-projects/yt-transcript-gpt/discussions)
 - **Email**: ukrpurojekuto@gmail.com
 
 ---
@@ -160,6 +160,6 @@ If you find this project useful, please consider giving it a star on GitHub! You
 
 **Made with ❤️ by the Ujjwal Nova**
 
-[⭐ Star this repo](https://github.com/UKR-PROJECTS/Youtube-Transcript-Generator) | [🐛 Report Bug](https://github.com/UKR-PROJECTS/Youtube-Transcript-Generator/issues) | [💡 Request Feature](https://github.com/UKR-PROJECTS/Youtube-Transcript-Generator/issues)
+[⭐ Star this repo](https://github.com/ukr-projects/yt-transcript-gpt) | [🐛 Report Bug](https://github.com/ukr-projects/yt-transcript-gpt/issues) | [💡 Request Feature](https://github.com/ukr-projects/yt-transcript-gpt/issues)
 
 </div>
