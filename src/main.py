@@ -1,8 +1,8 @@
 """
-YouTube Transcript Generator - Professional YouTube Transcript Extractor
+yt-transcript-gpt - Professional YouTube Transcript Extractor
 ==============================================
 
-YouTube Transcript Generator with AI Analysis and Chat Interface
+yt-transcript-gpt with AI Analysis and Chat Interface
 Streamlit-based desktop/web app to extract YouTube video transcripts
 
 Author: Ujjwal Nova
