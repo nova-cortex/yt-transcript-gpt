@@ -36,18 +36,22 @@ yt-transcript-gpt is a Streamlit-based desktop/web app to extract YouTube video 
 ## 🗂️ Folder Structure
 
 ```
-
 yt-transcript-gpt/
 ├── LICENSE                      # MIT License
 ├── README.md                    # This file
 ├── requirements.txt             # Python dependencies
-└── src/                         # Source directory
-     └── main.py                  # Streamlit app entry point
-├── favicon.ico              # App icon
-└── screenshots/             # UI previews
+├── src/                         # Source directory
+│   ├── main.py                  # Streamlit app entry point
+│   └── app/                     # Main application package
+│       ├── __init__.py          # Makes 'app' a Python package
+│       ├── main.py              # Core application logic
+│       ├── ui.py                # UI components and layout
+│       ├── transcript_extractor.py # Transcript extraction logic
+│       ├── gemini_ai.py         # Gemini AI integration
+│       └── utils.py             # Utility functions
+└── screenshots/                 # UI previews
     └── screenshot.png
-
-````
+```
 
 ---
 
