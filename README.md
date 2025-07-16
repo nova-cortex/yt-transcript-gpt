@@ -37,18 +37,24 @@ yt-transcript-gpt is a Streamlit-based desktop/web app to extract YouTube video 
 
 ```
 yt-transcript-gpt/
+├── .gitignore                   # Git ignore file
+├── CODE_OF_CONDUCT.md           # Code of Conduct
+├── CONTRIBUTING.md              # Contribution guidelines
 ├── LICENSE                      # MIT License
 ├── README.md                    # This file
 ├── requirements.txt             # Python dependencies
-├── src/                         # Source directory
+├── src/                         # Source code
 │   ├── main.py                  # Streamlit app entry point
 │   └── app/                     # Main application package
 │       ├── __init__.py          # Makes 'app' a Python package
-│       ├── main.py              # Core application logic
-│       ├── ui.py                # UI components and layout
-│       ├── transcript_extractor.py # Transcript extraction logic
 │       ├── gemini_ai.py         # Gemini AI integration
+│       ├── main.py              # Core application logic
+│       ├── transcript_extractor.py # Transcript extraction logic
+│       ├── ui.py                # UI components and layout
 │       └── utils.py             # Utility functions
+├── tests/                       # Test suite
+│   ├── test_gemini_ai.py        # Tests for Gemini AI module
+│   └── test_transcript_extractor.py # Tests for transcript extractor
 └── screenshots/                 # UI previews
     └── screenshot.png
 ```
