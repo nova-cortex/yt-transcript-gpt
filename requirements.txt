@@ -4,3 +4,4 @@ yt-dlp
 google-generativeai
 requests
 urllib3
+pytest>=8.0.0
