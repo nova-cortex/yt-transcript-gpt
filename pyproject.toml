@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "yt-transcript-gpt"
 version = "0.1.0"
 authors = [
-  { name="Ujjwal Nova", email="ukrpurojekuto@gmail.com" },
+  { name="UKR", email="ukrpurojekuto@gmail.com" },
 ]
 description = "A Streamlit app to extract YouTube video transcripts and analyze them with AI."
 readme = "README.md"
