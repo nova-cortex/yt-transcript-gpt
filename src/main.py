@@ -7,7 +7,7 @@ Streamlit-based desktop/web app to extract YouTube video transcripts
 
 Author: Ujjwal Nova
 License: MIT
-Repository: https://github.com/ukr-projects/yt-transcript-gpt
+Repository: https://github.com/nova-cortex/yt-transcript-gpt
 
 What’s New:
 - 🎉 Initial release with core transcript extraction and AI modules
