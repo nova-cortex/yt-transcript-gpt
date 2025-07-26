@@ -1,6 +1,4 @@
 """
-UI module for the YouTube Transcript Extractor.
-
 This module contains functions for rendering the user interface components
 of the Streamlit application, including custom CSS, headers, sidebars,
 and the main content display areas for transcripts, notes, and chat.

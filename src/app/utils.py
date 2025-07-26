@@ -1,6 +1,4 @@
 """
-Utilities Module.
-
 This module provides utility functions that are used across the application,
 such as creating download links for content and displaying content with
 interactive actions like downloading and deleting.

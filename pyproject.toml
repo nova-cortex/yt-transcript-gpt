@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "yt-transcript-gpt"
-version = "0.1.0"
+version = "1.0.0"
 authors = [
   { name="ukr", email="ujjwalkrai@gmail.com" },
 ]
 description = "A Streamlit app to extract YouTube video transcripts and analyze them with AI."
-readme = "README.md"
+readme = "docs/README.md"
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",

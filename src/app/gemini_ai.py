@@ -1,6 +1,4 @@
 """
-Gemini AI Module.
-
 This module provides the `GeminiAI` class, which interfaces with the Google
 Generative AI API (Gemini). It includes methods for generating various types
 of content based on a given transcript, such as summaries, key quotes, study

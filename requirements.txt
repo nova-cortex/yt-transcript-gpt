@@ -4,4 +4,7 @@ yt-dlp
 google-generativeai
 requests
 urllib3
-pytest>=8.0.0
+black
+flake8 
+pytest
+requests-mock

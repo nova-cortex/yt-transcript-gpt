@@ -1,6 +1,4 @@
 """
-Main application file for the YouTube Transcript Extractor.
-
 This file contains the main logic for the Streamlit application, including
 the overall layout, user interaction, and coordination between different
 modules such as UI, transcript extraction, and AI processing.
