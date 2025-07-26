@@ -55,6 +55,45 @@
 ## 🗂️ Folder Structure
 
 ```
+yt-transcript-gpt/
+├── .devcontainer/
+│   └── devcontainer.json
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── RELEASE_TEMPLATE.md
+│   └── workflows/
+│       └── ci.yml
+├── .gitignore
+├── assets/
+│   ├── screenshots/
+│   │   └── screenshot.png
+│   └── yt-transcript-gpt-banner.jpg
+├── docs/
+│   ├── CHANGELOG.md
+│   ├── CODE_OF_CONDUCT.md
+│   ├── CONTRIBUTING.md
+│   ├── README.md
+│   ├── SECURITY.md
+│   ├── STATUS.md
+│   └── USAGE.md
+├── LICENSE
+├── pyproject.toml
+├── requirements.txt
+├── src/
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── gemini_ai.py
+│   │   ├── main.py
+│   │   ├── transcript_extractor.py
+│   │   ├── ui.py
+│   │   └── utils.py
+│   └── main.py
+└── tests/
+    ├── test_gemini_ai.py
+    └── test_transcript_extractor.py
 
 ```
 
