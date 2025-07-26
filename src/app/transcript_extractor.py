@@ -129,51 +129,58 @@ class YouTubeTranscriptExtractor:
             list: A list of transcript segments with text, start time, and duration.
         """
         transcript = []
-        lines = vtt_content.split('\n')
-        
+        lines = vtt_content.split("\n")
+
         i = 0
         while i < len(lines):
             line = lines[i].strip()
-            
+
             # Skip empty lines and WEBVTT headers
-            if not line or line.startswith('WEBVTT') or line.startswith('Kind:') or line.startswith('Language:'):
+            if (
+                not line
+                or line.startswith("WEBVTT")
+                or line.startswith("Kind:")
+                or line.startswith("Language:")
+            ):
                 i += 1
                 continue
-            
+
             # Look for timestamp lines (format: 00:00:00.000 --> 00:00:00.000)
-            if '-->' in line:
+            if "-->" in line:
                 try:
                     # Parse timestamp
-                    timestamp_parts = line.split(' --> ')
+                    timestamp_parts = line.split(" --> ")
                     if len(timestamp_parts) == 2:
                         start_time = self._parse_timestamp(timestamp_parts[0])
                         end_time = self._parse_timestamp(timestamp_parts[1])
                         duration = end_time - start_time
-                        
+
                         # Get the text content (next non-empty lines)
                         text_lines = []
                         i += 1
                         while i < len(lines) and lines[i].strip():
                             text_line = lines[i].strip()
                             # Remove HTML tags and formatting
-                            text_line = re.sub(r'<[^>]+>', '', text_line)
+                            text_line = re.sub(r"<[^>]+>", "", text_line)
                             if text_line:
                                 text_lines.append(text_line)
                             i += 1
-                        
+
                         if text_lines:
-                            text = ' '.join(text_lines)
-                            transcript.append({
-                                'text': text,
-                                'start': start_time,
-                                'duration': duration
-                            })
+                            text = " ".join(text_lines)
+                            transcript.append(
+                                {
+                                    "text": text,
+                                    "start": start_time,
+                                    "duration": duration,
+                                }
+                            )
                 except Exception as e:
                     # Skip malformed timestamp lines
                     pass
-            
+
             i += 1
-        
+
         return transcript
 
     def _parse_srt_content(self, srt_content):
@@ -187,38 +194,42 @@ class YouTubeTranscriptExtractor:
             list: A list of transcript segments with text, start time, and duration.
         """
         transcript = []
-        blocks = srt_content.strip().split('\n\n')
-        
+        blocks = srt_content.strip().split("\n\n")
+
         for block in blocks:
-            lines = block.strip().split('\n')
+            lines = block.strip().split("\n")
             if len(lines) >= 3:
                 try:
                     # Skip sequence number (first line)
                     # Parse timestamp (second line)
                     timestamp_line = lines[1]
-                    if '-->' in timestamp_line:
-                        timestamp_parts = timestamp_line.split(' --> ')
+                    if "-->" in timestamp_line:
+                        timestamp_parts = timestamp_line.split(" --> ")
                         if len(timestamp_parts) == 2:
                             start_time = self._parse_srt_timestamp(timestamp_parts[0])
                             end_time = self._parse_srt_timestamp(timestamp_parts[1])
                             duration = end_time - start_time
-                            
+
                             # Get text content (remaining lines)
                             text_lines = lines[2:]
-                            text = ' '.join(line.strip() for line in text_lines if line.strip())
+                            text = " ".join(
+                                line.strip() for line in text_lines if line.strip()
+                            )
                             # Remove HTML tags
-                            text = re.sub(r'<[^>]+>', '', text)
-                            
+                            text = re.sub(r"<[^>]+>", "", text)
+
                             if text:
-                                transcript.append({
-                                    'text': text,
-                                    'start': start_time,
-                                    'duration': duration
-                                })
+                                transcript.append(
+                                    {
+                                        "text": text,
+                                        "start": start_time,
+                                        "duration": duration,
+                                    }
+                                )
                 except Exception as e:
                     # Skip malformed blocks
                     continue
-        
+
         return transcript
 
     def _parse_timestamp(self, timestamp_str):
@@ -234,17 +245,17 @@ class YouTubeTranscriptExtractor:
         try:
             # Remove any extra whitespace
             timestamp_str = timestamp_str.strip()
-            
+
             # Handle different timestamp formats
-            if '.' in timestamp_str:
-                time_part, ms_part = timestamp_str.rsplit('.', 1)
-                milliseconds = float('0.' + ms_part)
+            if "." in timestamp_str:
+                time_part, ms_part = timestamp_str.rsplit(".", 1)
+                milliseconds = float("0." + ms_part)
             else:
                 time_part = timestamp_str
                 milliseconds = 0.0
-            
+
             # Parse HH:MM:SS
-            time_components = time_part.split(':')
+            time_components = time_part.split(":")
             if len(time_components) == 3:
                 hours, minutes, seconds = map(int, time_components)
                 total_seconds = hours * 3600 + minutes * 60 + seconds + milliseconds
@@ -255,7 +266,7 @@ class YouTubeTranscriptExtractor:
                 return total_seconds
         except Exception:
             return 0.0
-        
+
         return 0.0
 
     def _parse_srt_timestamp(self, timestamp_str):
@@ -270,24 +281,24 @@ class YouTubeTranscriptExtractor:
         """
         try:
             timestamp_str = timestamp_str.strip()
-            
+
             # SRT uses comma for milliseconds
-            if ',' in timestamp_str:
-                time_part, ms_part = timestamp_str.rsplit(',', 1)
-                milliseconds = float('0.' + ms_part)
+            if "," in timestamp_str:
+                time_part, ms_part = timestamp_str.rsplit(",", 1)
+                milliseconds = float("0." + ms_part)
             else:
                 time_part = timestamp_str
                 milliseconds = 0.0
-            
+
             # Parse HH:MM:SS
-            time_components = time_part.split(':')
+            time_components = time_part.split(":")
             if len(time_components) == 3:
                 hours, minutes, seconds = map(int, time_components)
                 total_seconds = hours * 3600 + minutes * 60 + seconds + milliseconds
                 return total_seconds
         except Exception:
             return 0.0
-        
+
         return 0.0
 
     def get_transcript_ytdlp(self, video_id, use_proxy=False, proxy_config=None):
@@ -304,91 +315,103 @@ class YouTubeTranscriptExtractor:
         """
         try:
             url = f"https://www.youtube.com/watch?v={video_id}"
-            
+
             # Create a temporary directory for subtitle files
             with tempfile.TemporaryDirectory() as temp_dir:
                 ydl_opts = {
-                    'writesubtitles': True,
-                    'writeautomaticsub': True,
-                    'skip_download': True,
-                    'quiet': True,
-                    'no_warnings': True,
-                    'subtitleslangs': ['en', 'en-US', 'en-GB'],
-                    'subtitlesformat': 'vtt/srt/best',
-                    'outtmpl': os.path.join(temp_dir, '%(title)s.%(ext)s'),
+                    "writesubtitles": True,
+                    "writeautomaticsub": True,
+                    "skip_download": True,
+                    "quiet": True,
+                    "no_warnings": True,
+                    "subtitleslangs": ["en", "en-US", "en-GB"],
+                    "subtitlesformat": "vtt/srt/best",
+                    "outtmpl": os.path.join(temp_dir, "%(title)s.%(ext)s"),
                 }
 
                 if use_proxy and proxy_config:
-                    ydl_opts['proxy'] = proxy_config
+                    ydl_opts["proxy"] = proxy_config
 
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     # Extract info without downloading video
                     info = ydl.extract_info(url, download=False)
-                    
+
                     # Store video info
                     self.video_info = {
-                        'video_id': video_id,
-                        'url': url,
-                        'title': info.get('title', 'Unknown Title'),
-                        'duration': info.get('duration', 0),
-                        'extracted_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        "video_id": video_id,
+                        "url": url,
+                        "title": info.get("title", "Unknown Title"),
+                        "duration": info.get("duration", 0),
+                        "extracted_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     }
-                    
+
                     # Try to download subtitles
                     ydl.download([url])
-                    
+
                     # Look for subtitle files in the temp directory
                     subtitle_files = []
                     for file in os.listdir(temp_dir):
-                        if file.endswith(('.vtt', '.srt')):
+                        if file.endswith((".vtt", ".srt")):
                             subtitle_files.append(os.path.join(temp_dir, file))
-                    
+
                     # Process the first available subtitle file
                     for subtitle_file in subtitle_files:
                         try:
-                            with open(subtitle_file, 'r', encoding='utf-8') as f:
+                            with open(subtitle_file, "r", encoding="utf-8") as f:
                                 content = f.read()
-                            
-                            if subtitle_file.endswith('.vtt'):
+
+                            if subtitle_file.endswith(".vtt"):
                                 transcript = self._parse_vtt_content(content)
-                            elif subtitle_file.endswith('.srt'):
+                            elif subtitle_file.endswith(".srt"):
                                 transcript = self._parse_srt_content(content)
                             else:
                                 continue
-                            
+
                             if transcript:
                                 return transcript
-                                
+
                         except Exception as e:
-                            st.warning(f"Failed to process subtitle file {subtitle_file}: {str(e)}")
+                            st.warning(
+                                f"Failed to process subtitle file {subtitle_file}: {str(e)}"
+                            )
                             continue
-                    
+
                     # If no subtitle files were found, try to get them from the info dict
-                    subtitles = info.get('subtitles', {})
-                    auto_captions = info.get('automatic_captions', {})
-                    
+                    subtitles = info.get("subtitles", {})
+                    auto_captions = info.get("automatic_captions", {})
+
                     # Try to find English subtitles
-                    for lang in ['en', 'en-US', 'en-GB']:
+                    for lang in ["en", "en-US", "en-GB"]:
                         if lang in subtitles:
-                            return self._download_and_parse_subtitle(subtitles[lang], use_proxy, proxy_config)
+                            return self._download_and_parse_subtitle(
+                                subtitles[lang], use_proxy, proxy_config
+                            )
                         if lang in auto_captions:
-                            return self._download_and_parse_subtitle(auto_captions[lang], use_proxy, proxy_config)
-                    
+                            return self._download_and_parse_subtitle(
+                                auto_captions[lang], use_proxy, proxy_config
+                            )
+
                     # Try any available language
                     if subtitles:
                         first_lang = list(subtitles.keys())[0]
-                        return self._download_and_parse_subtitle(subtitles[first_lang], use_proxy, proxy_config)
+                        return self._download_and_parse_subtitle(
+                            subtitles[first_lang], use_proxy, proxy_config
+                        )
                     if auto_captions:
                         first_lang = list(auto_captions.keys())[0]
-                        return self._download_and_parse_subtitle(auto_captions[first_lang], use_proxy, proxy_config)
+                        return self._download_and_parse_subtitle(
+                            auto_captions[first_lang], use_proxy, proxy_config
+                        )
 
             return None
-            
+
         except Exception as e:
             st.error(f"yt-dlp failed: {str(e)}")
             return None
 
-    def _download_and_parse_subtitle(self, subtitle_formats, use_proxy=False, proxy_config=None):
+    def _download_and_parse_subtitle(
+        self, subtitle_formats, use_proxy=False, proxy_config=None
+    ):
         """
         Downloads and parses subtitle content from yt-dlp subtitle format info.
 
@@ -402,46 +425,49 @@ class YouTubeTranscriptExtractor:
         """
         import urllib.request
         import urllib.error
-        
+
         # Try different formats in order of preference
-        preferred_formats = ['vtt', 'srv3', 'srv2', 'srv1', 'srt']
-        
+        preferred_formats = ["vtt", "srv3", "srv2", "srv1", "srt"]
+
         for format_pref in preferred_formats:
             for subtitle_format in subtitle_formats:
-                if subtitle_format.get('ext') == format_pref:
+                if subtitle_format.get("ext") == format_pref:
                     try:
-                        subtitle_url = subtitle_format.get('url')
+                        subtitle_url = subtitle_format.get("url")
                         if not subtitle_url:
                             continue
-                        
+
                         # Set up request with proxy if needed
                         if use_proxy and proxy_config:
-                            proxy_handler = urllib.request.ProxyHandler({
-                                'http': proxy_config,
-                                'https': proxy_config
-                            })
+                            proxy_handler = urllib.request.ProxyHandler(
+                                {"http": proxy_config, "https": proxy_config}
+                            )
                             opener = urllib.request.build_opener(proxy_handler)
                             urllib.request.install_opener(opener)
-                        
+
                         # Download subtitle content
-                        with urllib.request.urlopen(subtitle_url, timeout=30) as response:
-                            content = response.read().decode('utf-8')
-                        
+                        with urllib.request.urlopen(
+                            subtitle_url, timeout=30
+                        ) as response:
+                            content = response.read().decode("utf-8")
+
                         # Parse based on format
-                        if format_pref in ['vtt', 'srv3', 'srv2', 'srv1']:
+                        if format_pref in ["vtt", "srv3", "srv2", "srv1"]:
                             transcript = self._parse_vtt_content(content)
-                        elif format_pref == 'srt':
+                        elif format_pref == "srt":
                             transcript = self._parse_srt_content(content)
                         else:
                             continue
-                        
+
                         if transcript:
                             return transcript
-                            
+
                     except Exception as e:
-                        st.warning(f"Failed to download subtitle format {format_pref}: {str(e)}")
+                        st.warning(
+                            f"Failed to download subtitle format {format_pref}: {str(e)}"
+                        )
                         continue
-        
+
         return None
 
     def _process_ytdlp_subtitles(self, subtitle_list):
