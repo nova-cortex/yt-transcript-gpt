@@ -1,315 +1,419 @@
-# Usage Guide
+# Usage Guide - YouTube Transcript GPT
 
-A comprehensive guide on how to use the Repository Blueprint template to create professional, well-structured repositories for your projects.
+A comprehensive guide on how to use YouTube Transcript GPT to extract, analyze, and interact with YouTube video transcripts using AI-powered insights.
 
 ## Table of Contents
 
 - [Overview](#overview)
 - [Quick Start](#quick-start)
-- [Step-by-Step Setup](#step-by-step-setup)
-- [Customization Guide](#customization-guide)
-- [Making It Your Default Template](#making-it-your-default-template)
-- [Repository Structure](#repository-structure)
-- [Best Practices](#best-practices)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Features Overview](#features-overview)
+- [Step-by-Step Usage](#step-by-step-usage)
+- [AI-Powered Features](#ai-powered-features)
+- [Advanced Features](#advanced-features)
 - [Troubleshooting](#troubleshooting)
+- [Tips and Best Practices](#tips-and-best-practices)
+- [API Configuration](#api-configuration)
+- [Proxy Configuration](#proxy-configuration)
 
 ## Overview
 
-The Repository Blueprint is a comprehensive template designed to jumpstart your development projects with professional structure, documentation, and community standards compliance. It includes:
+YouTube Transcript GPT is a powerful Streamlit application that allows you to:
 
-- **Professional README.md** with consistent styling and improved layout
-- **GitHub Templates** for issues and pull requests
-- **Community Standards** including Code of Conduct, Contributing guidelines, and Security policy
-- **Asset Management** with organized folder structure for images and screenshots
-- **License and Documentation** following open-source best practices
+- **Extract transcripts** from YouTube videos automatically
+- **Generate AI-powered insights** including summaries, key quotes, study guides, Q&A sessions, and flashcards
+- **Interactive chat** with video content using Google's Gemini AI
+- **Note-taking system** with timestamps and searchable content
+- **Export functionality** for all generated content
+- **Proxy support** for bypassing regional restrictions
 
 ## Quick Start
 
-### Method 1: Use as GitHub Template
-
-1. **Navigate to the repository**: Go to [ukr-projects/repo-blueprint](https://github.com/ukr-projects/repo-blueprint)
-2. **Click "Use this template"**: Look for the green button at the top of the repository
-3. **Create new repository**: Fill in your repository name and description
-4. **Choose visibility**: Select public or private based on your needs
-5. **Create repository**: Click "Create repository from template"
-
-### Method 2: Clone and Modify
+### Method 1: Run Locally
 
 ```bash
 # Clone the repository
-git clone https://github.com/ukr-projects/repo-blueprint.git your-project-name
+git clone https://github.com/nova-cortex/yt-transcript-gpt.git
+cd yt-transcript-gpt
 
-# Navigate to the project directory
-cd your-project-name
+# Install dependencies
+pip install -r requirements.txt
 
-# Remove the original git history
-rm -rf .git
-
-# Initialize a new git repository
-git init
-
-# Add your remote origin
-git remote add origin https://github.com/yourusername/your-project-name.git
+# Run the application
+streamlit run src/main.py
 ```
 
-## Step-by-Step Setup
-
-### 1. Initial Setup
-
-After cloning or using the template, follow these steps:
+### Method 2: Using Python Module
 
 ```bash
-# Navigate to your project directory
-cd your-project-name
-
-# Install dependencies (if applicable to your project type)
-# This step varies based on your project (Node.js, Python, etc.)
+# After installation, run as a module
+python src/main.py
 ```
 
-### 2. Customize Project Information
+The application will open in your default web browser at `http://localhost:8501`.
 
-Update the following files with your project-specific information:
+## Installation
 
-#### README.md (in docs folder)
-- Replace project name and description
-- Update installation instructions
-- Modify usage examples
-- Update contact information
-- Change repository URLs
+### Prerequisites
 
-#### Package Files
-Update relevant package files based on your project type:
-- `package.json` (Node.js projects)
-- `requirements.txt` (Python projects)
-- `Cargo.toml` (Rust projects)
-- `go.mod` (Go projects)
+- Python 3.8 or higher
+- Internet connection for API calls
+- Google Gemini API key (free tier available)
 
-### 3. Update Documentation
+### Required Dependencies
 
-#### docs/CONTRIBUTING.md
-- Modify contribution guidelines specific to your project
-- Update development setup instructions
-- Adjust coding standards and conventions
+```bash
+pip install streamlit
+pip install youtube-transcript-api
+pip install yt-dlp
+pip install google-generativeai
+```
 
-#### docs/CODE_OF_CONDUCT.md
-- Review and customize if needed
-- Update contact information for reporting issues
+Or install all at once:
 
-#### docs/SECURITY.md
-- Update security policy for your project
-- Modify vulnerability reporting process
-- Add project-specific security considerations
+```bash
+pip install -r requirements.txt
+```
 
-### 4. Configure GitHub Templates
+### Verify Installation
 
-#### .github/ISSUE_TEMPLATE/
-- **bug_report.md**: Customize bug report template
-- **feature_request.md**: Modify feature request template
-- Add additional templates if needed
+After installation, check that all required libraries are available:
 
-#### .github/PULL_REQUEST_TEMPLATE.md
-- Update PR checklist items
-- Modify review criteria
-- Add project-specific requirements
+1. Start the application
+2. Check the sidebar "📚 Available Libraries" section
+3. Both "YouTube Transcript API" and "yt-dlp" should show ✅
 
-### 5. Update Assets
+## Configuration
 
-#### assets/ folder
-- Replace `repo-blueprint-banner.jpg` with your project banner
-- Replace `repo-blueprint-logo.png` with your project logo
-- Add project-specific screenshots to `screenshots/` folder
-- Update image references in documentation
+### 1. Gemini API Key Setup
 
-## Customization Guide
+1. **Get your API key**:
+   - Visit [Google AI Studio](https://ai.google.dev/)
+   - Create an account or sign in
+   - Generate a new API key (free tier available)
 
-### Project Branding
+2. **Configure in the app**:
+   - Open the application
+   - In the sidebar, paste your API key in the "Gemini API Key" field
+   - Look for the ✅ confirmation message
 
-1. **Logo and Banner**:
-   ```bash
-   # Replace with your project assets
-   cp your-logo.png assets/repo-blueprint-logo.png
-   cp your-banner.jpg assets/repo-blueprint-banner.jpg
+### 2. Proxy Configuration (Optional)
+
+If you encounter IP blocking or regional restrictions:
+
+1. **Enable proxy** in the sidebar
+2. **Configure proxy settings**:
+   - Proxy Type: HTTP, HTTPS, or SOCKS5
+   - Proxy Host: Your proxy server address
+   - Proxy Port: Port number
+   - Username/Password: If required by your proxy
+
+## Features Overview
+
+### Core Features
+
+| Feature | Description | Requirements |
+|---------|-------------|--------------|
+| 🎬 **Transcript Extraction** | Extract transcripts from any YouTube video | None |
+| 📊 **AI Summaries** | Generate comprehensive video summaries | Gemini API |
+| 💎 **Key Quotes** | Extract impactful quotes with timestamps | Gemini API |
+| 📚 **Study Guides** | Create structured learning materials | Gemini API |
+| ❓ **Q&A Generation** | Generate questions and answers | Gemini API |
+| 🎯 **Flashcards** | Create memorization cards | Gemini API |
+| ✨ **Highlights** | Extract key insights and revelations | Gemini API |
+| 💬 **Chat Interface** | Ask questions about video content | Gemini API |
+| 📝 **Note Taking** | Add personal notes to transcript segments | None |
+| 🔍 **Search** | Search within transcript content | None |
+| 📥 **Export** | Download transcripts and AI-generated content | None |
+
+## Step-by-Step Usage
+
+### 1. Extract a Transcript
+
+1. **Launch the application** using `streamlit run src/main.py`
+2. **Paste YouTube URL** in the "YouTube Video URL" field
    ```
+   Examples:
+   https://www.youtube.com/watch?v=VIDEO_ID
+   https://youtu.be/VIDEO_ID
+   https://youtube.com/watch?v=VIDEO_ID&t=120s
+   ```
+3. **Click "🚀 Extract Transcript"**
+4. **Wait for processing** - you'll see a spinner and then a success message
 
-2. **Color Scheme**: Update HTML styling in README.md to match your brand colors
+### 2. View and Interact with Transcript
 
-3. **Project Information**: Update all instances of:
-   - Project name
-   - Repository URLs
-   - Contact information
-   - License details (if different from MIT)
+1. **Click "📋 View Transcript"** to expand the transcript viewer
+2. **Search functionality**: Use the search box to find specific terms
+3. **Paragraph-based display**: Content is organized into readable paragraphs
+4. **Timestamp navigation**: Each paragraph shows its video timestamp
 
-### Technology-Specific Customization
+### 3. Copy and Download Content
 
-#### For Node.js Projects
-```bash
-# Add package.json
-npm init -y
+#### Copy Individual Paragraphs
+- Click "📋 Copy" next to any paragraph
+- Content is copied to your session for easy access
 
-# Update with project dependencies
-npm install your-dependencies
-```
+#### Copy Entire Transcript
+- Click "📋 Copy Whole Transcript" 
+- Clean, formatted transcript is copied to clipboard
 
-#### For Python Projects
-```bash
-# Create requirements.txt
-pip freeze > requirements.txt
+#### Download Transcript
+- Click "📥 Download Transcript"
+- Includes your notes if any have been added
+- Saved as a timestamped .txt file
 
-# Add setup.py or setup.cfg if needed
-```
+### 4. Add Personal Notes
 
-#### For Other Languages
-- Add appropriate configuration files
-- Update build scripts
-- Modify CI/CD workflows if needed
+1. **Click "📝 Note"** next to any paragraph
+2. **Type your note** in the text area
+3. **Click "💾 Save Note"** to save
+4. **View notes summary** at the bottom of the transcript section
 
-## Making It Your Default Template
+## AI-Powered Features
 
-### Option 1: GitHub Template Repository
+### Prerequisites
+- Gemini API key configured in sidebar
+- Extracted transcript available
 
-1. **Fork the repository** to your account
-2. **Customize** it with your preferred defaults
-3. **Mark as template** in repository settings
-4. **Use for new projects** via "Use this template" button
+### Available AI Features
 
-### Option 2: Local Template System
+#### 📊 Summarize
+- **Purpose**: Generate comprehensive video summaries
+- **Content**: Main topics, key points, important conclusions
+- **Use case**: Quick understanding of long videos
 
-Create a local template system for offline use:
+#### 💎 Key Quotes
+- **Purpose**: Extract 5-10 most impactful quotes
+- **Format**: "Quote text" - [Timestamp]
+- **Use case**: Social media sharing, presentations
 
-```bash
-# Create a templates directory
-mkdir ~/project-templates
-cd ~/project-templates
+#### 📚 Study Guide
+- **Purpose**: Create structured learning materials
+- **Content**: Main topics, key concepts, definitions, study questions
+- **Use case**: Academic learning, skill development
 
-# Clone the blueprint
-git clone https://github.com/ukr-projects/repo-blueprint.git
+#### ❓ Q&A
+- **Purpose**: Generate comprehensive question-answer pairs
+- **Content**: 10-15 questions with detailed answers
+- **Use case**: Self-testing, interview preparation
 
-# Create a setup script
-cat > setup-new-project.sh << 'EOF'
-#!/bin/bash
-if [ -z "$1" ]; then
-    echo "Usage: $0 <project-name>"
-    exit 1
-fi
+#### 🎯 Flash Cards
+- **Purpose**: Create memorization cards
+- **Format**: FRONT: Question/Term, BACK: Answer/Definition
+- **Content**: 15-20 flashcards per video
+- **Use case**: Vocabulary building, concept memorization
 
-PROJECT_NAME=$1
-cp -r repo-blueprint "$PROJECT_NAME"
-cd "$PROJECT_NAME"
-rm -rf .git
-git init
-echo "Project $PROJECT_NAME created successfully!"
-EOF
+#### ✨ Highlights
+- **Purpose**: Extract key insights and actionable takeaways
+- **Content**: Key insights, revelations, data/statistics, actionable items
+- **Format**: Organized with emojis and clear formatting
+- **Use case**: Business insights, personal development
 
-chmod +x setup-new-project.sh
-```
+### Using AI Features
 
-Usage:
-```bash
-# Create new project from template
-~/project-templates/setup-new-project.sh my-new-project
-```
+1. **Ensure API key is configured** (✅ in sidebar)
+2. **Extract a transcript first**
+3. **Click any AI feature button** in the right column
+4. **Wait for processing** (usually 10-30 seconds)
+5. **View generated content** in the "Your Notes" section
+6. **Download or copy** the generated content
 
-### Option 3: GitHub CLI Template
+## Advanced Features
 
-Use GitHub CLI for quick template usage:
+### Interactive Chat
 
-```bash
-# Install GitHub CLI if not already installed
-# Then create repositories from template
-gh repo create my-new-project --template ukr-projects/repo-blueprint
-```
+1. **Navigate to "💬 Chat with Transcript" section**
+2. **Type your question** about the video content
+   ```
+   Example questions:
+   - "What are the main arguments presented?"
+   - "Can you explain the technical concepts mentioned?"
+   - "What actionable advice is given?"
+   ```
+3. **Click "💬 Ask"** to get AI-powered answers
+4. **View chat history** for previous Q&A sessions
 
-## Repository Structure
+### Search and Navigation
 
-```
-your-project/
-├── .github/                    # GitHub-specific files
-│   ├── ISSUE_TEMPLATE/        # Issue templates
-│   │   ├── bug_report.md      # Bug report template
-│   │   └── feature_request.md # Feature request template
-│   └── PULL_REQUEST_TEMPLATE.md # PR template
-├── assets/                     # Project assets
-│   ├── logo.png               # Project logo
-│   ├── banner.jpg             # Project banner
-│   └── screenshots/           # Project screenshots
-├── docs/                       # Documentation
-│   ├── CODE_OF_CONDUCT.md     # Code of conduct
-│   ├── CONTRIBUTING.md        # Contribution guidelines
-│   ├── README.md              # Main documentation
-│   └── SECURITY.md            # Security policy
-├── src/                        # Source code (add as needed)
-├── tests/                      # Test files (add as needed)
-├── LICENSE                     # License file
-└── README.md                   # Root README (can link to docs/README.md)
-```
+#### Transcript Search
+- **Use the search box** in the transcript section
+- **Terms are highlighted** in yellow for easy identification
+- **Case-insensitive** search functionality
 
-## Best Practices
+#### Note Management
+- **View all notes** in the "📋 Your Notes" section
+- **Expand/collapse** individual notes
+- **Delete notes** using the 🗑️ button
+- **Download individual notes** as markdown files
 
-### Documentation
-- Keep README.md updated with current project status
-- Use clear, concise language in all documentation
-- Include code examples and usage instructions
-- Maintain changelog for version tracking
+### Content Export Options
 
-### GitHub Templates
-- Regularly review and update issue templates
-- Ensure PR template reflects current workflow
-- Test templates with dummy issues/PRs
+#### Individual Content Export
+- Each AI-generated content has a "📥 Download" button
+- Files are saved as markdown (.md) format
+- Filenames include content type and timestamp
 
-### Assets Management
-- Use high-quality images for better presentation
-- Optimize image sizes for faster loading
-- Maintain consistent branding across all assets
-
-### Version Control
-- Use semantic versioning for releases
-- Write descriptive commit messages
-- Maintain clean git history
-
-### Community Standards
-- Respond promptly to issues and PRs
-- Follow your own contributing guidelines
-- Keep security policy updated
+#### Bulk Export
+- Transcript with notes can be downloaded as single file
+- Notes are clearly marked in the exported content
+- Preserves formatting and structure
 
 ## Troubleshooting
 
-### Common Issues
+### Common Issues and Solutions
 
-#### Template Files Not Showing
-**Problem**: GitHub templates not appearing in issue/PR creation
-**Solution**: Ensure files are in correct paths with proper `.md` extension
+#### ❌ "Invalid YouTube URL"
+**Cause**: URL format not recognized
+**Solution**: 
+- Use full YouTube URLs: `https://www.youtube.com/watch?v=VIDEO_ID`
+- Avoid shortened URLs or URLs with extra parameters
 
-#### Images Not Loading
-**Problem**: Images in README not displaying
-**Solution**: Check image paths and ensure images are committed to repository
+#### ❌ "Both transcript extraction methods failed"
+**Possible causes**: IP blocking, no captions available, private video
+**Solutions**:
+1. **Enable proxy** in sidebar settings
+2. **Try different video** - some videos don't have captions
+3. **Check video availability** - ensure video is public
+4. **Wait and retry** - temporary IP restrictions
+5. **Use VPN** to change your IP address
 
-#### License Conflicts
-**Problem**: License doesn't match project requirements
-**Solution**: Replace LICENSE file with appropriate license for your project
+#### ❌ "YouTube Transcript API failed"
+**Solutions**:
+1. **Enable proxy configuration**:
+   - Check "Use Proxy" in sidebar
+   - Configure proxy server details
+   - Test with different proxy servers
 
-#### Documentation Out of Sync
-**Problem**: Multiple README files causing confusion
-**Solution**: Choose either root README.md or docs/README.md as primary, link to the other
+2. **Verify video has captions**:
+   - Manual captions work best
+   - Auto-generated captions are also supported
+   - Some videos may not have any captions
+
+#### ⚠️ AI Features Not Working
+**Check these items**:
+- ✅ Gemini API key is entered in sidebar
+- ✅ Transcript has been extracted successfully
+- ✅ Internet connection is stable
+- ✅ API key has remaining quota
+
+#### 🐌 Slow Performance
+**Optimization tips**:
+- Process shorter videos first
+- Close unnecessary browser tabs
+- Ensure stable internet connection
+- Use latest version of Streamlit
+
+### Error Messages Guide
+
+| Error Message | Meaning | Solution |
+|---------------|---------|----------|
+| "Your IP has been blocked" | YouTube has temporarily blocked your IP | Enable proxy or use VPN |
+| "Error generating summary" | Gemini API call failed | Check API key and internet connection |
+| "No subtitles available" | Video doesn't have captions | Try a different video |
+| "Invalid video ID" | Could not extract video ID from URL | Check URL format |
+
+## Tips and Best Practices
+
+### Optimal Video Selection
+- **Educational content** works best for AI features
+- **Videos with manual captions** provide better accuracy
+- **English content** produces best AI results
+- **10-60 minute videos** are ideal for processing time
+
+### Maximizing AI Features
+- **Be specific with chat questions** for better answers
+- **Use study guides for learning** complex topics
+- **Export flashcards to external apps** like Anki
+- **Combine multiple AI features** for comprehensive analysis
+
+### Note-Taking Strategy
+- **Add notes during transcript review** for context
+- **Use consistent formatting** in your notes
+- **Export regularly** to avoid losing work
+- **Organize notes by topic** using clear descriptions
+
+### Performance Optimization
+- **Process videos sequentially** rather than in parallel
+- **Clear chat history** periodically to free memory
+- **Download content regularly** and clear notes
+- **Use shorter videos** for testing new features
+
+## API Configuration
+
+### Gemini API Setup
+
+1. **Visit Google AI Studio**: https://ai.google.dev/
+2. **Create account** or sign in with Google
+3. **Generate API key**:
+   - Click "Get API key"
+   - Create new project or use existing
+   - Copy the generated key
+4. **Configure in app**:
+   - Paste key in sidebar "Gemini API Key" field
+   - Confirm ✅ "Gemini API configured" message
+
+### API Usage Limits
+
+- **Free tier**: Generous limits for personal use
+- **Rate limits**: Built-in handling for API rate limits
+- **Quota monitoring**: Check usage in Google AI Studio
+- **Error handling**: Automatic retry for temporary failures
+
+## Proxy Configuration
+
+### When to Use Proxy
+
+- 🚫 IP blocked by YouTube
+- 🌍 Regional content restrictions
+- 🏢 Corporate firewall blocking YouTube
+- 📡 Network-level restrictions
+
+### Proxy Setup Steps
+
+1. **Obtain proxy server details**:
+   - Host address (e.g., proxy.example.com)
+   - Port number (e.g., 8080)
+   - Authentication credentials (if required)
+
+2. **Configure in application**:
+   - Check "Use Proxy" in sidebar
+   - Select proxy type (HTTP/HTTPS/SOCKS5)
+   - Enter host and port
+   - Add credentials if required
+
+3. **Test configuration**:
+   - Try extracting a transcript
+   - Look for "Success using [method] (with proxy)" message
+
+### Proxy Providers
+
+**Free options**:
+- Public proxy lists (reliability varies)
+- Browser-based proxies
+
+**Paid options** (recommended):
+- Commercial proxy services
+- VPN services with proxy support
+- Cloud-based proxy solutions
+
+---
 
 ### 📞 Support
 
 - **📧 Email**: [ujjwalkrai@gmail.com](mailto:ujjwalkrai@gmail.com)
-- **🐛 Issues**: [Repository Issues](https://github.com/ukr-projects/repo-blueprint/issues)
-- **🔓 Security**: [Repository Security](https://github.com/ukr-projects/repo-blueprint/security)
-- **⛏ Pull Requests**: [Repository Pull Requests](https://github.com/ukr-projects/repo-blueprint/pulls)
-- **📖 Documentation**: [Repository Documentation](https://github.com/ukr-projects/repo-blueprint/tree/main/docs)
+- **🐛 Issues**: [Repository Issues](https://github.com/nova-cortex/yt-transcript-gpt/issues)
+- **🔓 Security**: [Repository Security](https://github.com/nova-cortex/yt-transcript-gpt/security)
+- **⛏ Pull Requests**: [Repository Pull Requests](https://github.com/nova-cortex/yt-transcript-gpt/pulls)
+- **📖 Documentation**: [Repository Documentation](https://github.com/nova-cortex/yt-transcript-gpt/tree/main/docs)
 
-### Contributing Back
+## Contributing
 
-If you improve the template, consider contributing back:
-
-1. Fork the original repository
-2. Make your improvements
-3. Submit a pull request with clear description
-4. Follow the contribution guidelines
+Want to improve YouTube Transcript GPT? Check out our [Contributing Guidelines](CONTRIBUTING.md) to get started!
 
 ---
 
-**Made with ❤️ for the developer community**
+**Made with ❤️ for learners and content creators**
 
-*This template helps create professional, well-structured repositories that follow community standards and best practices.*
+*Transform any YouTube video into a comprehensive learning resource with AI-powered insights and interactive features.*
