@@ -72,11 +72,11 @@ MD5: [checksum-here]
 ## 📞 Support
 
 - 📧 Email: ujjwalkrai@gmail.com
-- 🐛 Issues: [Repo Issues](https://github.com/ukr-projects/repo-blueprint/issues)
-- 🔓 Security: [Repo Security](https://github.com/ukr-projects/repo-blueprint/security)
-- ⛏ Pull Request: [Repo Pull Request](https://github.com/ukr-projects/repo-blueprint/pulls)
-- 📖 Docs: [Repo Documentation](https://github.com/ukr-projects/repo-blueprint/tree/main/docs)
-- 📃 Changelog: [Repo Changelog](https://github.com/ukr-projects/repo-blueprint/docs/CHANGELOG.md)
+- 🐛 Issues: [Repo Issues](https://github.com/nova-cortex/yt-transcript-gpt/issues)
+- 🔓 Security: [Repo Security](https://github.com/nova-cortex/yt-transcript-gpt/security)
+- ⛏ Pull Request: [Repo Pull Request](https://github.com/nova-cortex/yt-transcript-gpt/pulls)
+- 📖 Docs: [Repo Documentation](https://github.com/nova-cortex/yt-transcript-gpt/tree/main/docs)
+- 📃 Changelog: [Repo Changelog](https://github.com/nova-cortex/yt-transcript-gpt/docs/CHANGELOG.md)
 ---
 
 *This release source code was tested on: Windows, MacOS and Ubuntu*
