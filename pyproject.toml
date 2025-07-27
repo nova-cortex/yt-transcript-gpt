@@ -25,6 +25,14 @@ dependencies = [
     "urllib3",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "black",
+    "flake8", 
+    "pytest",
+    "requests-mock"
+]
+
 [project.urls]
 "Homepage" = "https://github.com/nova-cortex/yt-transcript-gptt"
 "Bug Tracker" = "https://github.com/nova-cortex/yt-transcript-gpt/issues"
