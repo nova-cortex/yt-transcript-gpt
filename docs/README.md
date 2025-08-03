@@ -165,7 +165,7 @@ This project is licensed under the MIT License - see the [LICENSE](../LICENSE) f
 - 🔓 Security: [Repo Security](https://github.com/nova-cortex/yt-transcript-gpt/security)
 - ⛏ Pull Request: [Repo Pull Request](https://github.com/nova-cortex/yt-transcript-gpt/pulls)
 - 📖 Docs: [Repo Documentation](https://github.com/nova-cortex/yt-transcript-gpt/tree/main/docs)
-- 📃 Changelog: [Repo Changelog](https://github.com/nova-cortex/yt-transcript-gpt/docs/CHANGELOG.md)
+- 📃 Changelog: [Repo Changelog](https://github.com/nova-cortex/yt-transcript-gpt/blob/main/docs/CHANGELOG.md)
 ---
 
 ## 🔗 Connect
